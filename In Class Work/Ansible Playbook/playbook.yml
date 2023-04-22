@@ -1,0 +1,26 @@
+- name: Install software and create users
+  hosts: linux
+  become: true
+  tasks:
+    - name: Install tree package
+      apt:
+        name: tree
+        state: present
+    - name: Create user alice
+      user:
+        name: alice
+        password: "{{ 'alice' | password_hash('sha512') }}"
+        shell: /bin/bash
+        groups: sudo
+    - name: Create user bob
+      user:
+        name: bob
+        password: "{{ 'bob' | password_hash('sha512') }}"
+        shell: /bin/bash
+        groups: sudo
+    - name: Create user charlie
+      user:
+        name: charlie
+        password: "{{ 'charlie' | password_hash('sha512') }}"
+        shell: /bin/bash
+        groups: sudo
